@@ -1,0 +1,39 @@
+# move_grasp_demo 节点参数
+# 现场调参只需要改这个文件（launch 命令行参数优先级更高）。
+/move_grasp_demo:
+  ros__parameters:
+    # ---- delivery_robot（底盘/机械臂/夹爪驱动）----
+    delivery_robot_dir: /home/zrk/tashan/delivery_robot
+    base_url: http://192.168.10.10:9001        # 底盘 HTTP 服务
+    delivery_marker: take_delivery_point       # 取物点（地图点位名）
+    task_marker: place_coffee_point            # 放置点（地图点位名）
+    hold_seconds: 2.0                          # 递接时等待秒数
+    movement_timeout: 3600.0                   # 单段导航超时（秒）
+
+    # ---- graspgen-X grasp pose 请求 ----
+    gripper_name: xarm_hand                    # 夹爪参数名（graspgen-X 用）
+    action_timeout_sec: 120.0                  # 单次抓取请求管线超时（秒）
+    use_grasp_orientation: false               # true=采用 grasp pose 完整姿态；
+                                               # false=只用位置+机械臂当前姿态（默认，稳妥）
+
+    # ---- 抓取 ----
+    grasp_attempts: 3                          # 空抓/失败后的总尝试次数
+    object_height: 0.10                        # 物体高度(米)，估算物体底部高度用，需现场校准
+
+    # ---- 机械臂示教位姿（现场示教读取后填入）----
+    # 注意：ROS 2 参数文件不支持嵌套列表，位姿统一写成 JSON 字符串。
+    init_pose: "[-0.202335, 0.021550, 0.268639, 1.799546, -0.036349, -3.128607]"
+    hold_pose: "[-0.171741, 0.050245, 0.268887, 1.584683, 0.021031, -3.126630]"
+    handover_poses: "[[-0.243511, 0.468121, 0.337032, 1.547183, -0.017308, -3.108060], [-0.240270, 0.499860, 0.204129, 1.591725, 0.013015, -3.010266]]"
+
+    # ---- 放置高度计算 ----
+    table_clearance: 0.24                      # 递接位姿1 距桌面高度（米），反推桌面高度
+    release_gap: 0.01                          # 物体底部与桌面保留间隙（米）
+
+    # ---- 相机 -> 机械臂基座外参 ----
+    # "auto" = 按 delivery_robot/config/config.json 的相机/夹爪类型自动选择；
+    # 也可写死绝对路径。
+    extrinsic_file: auto
+
+    # ---- 调试 ----
+    dry_run: false                             # true = 不连接硬件/管线，只演示流程顺序

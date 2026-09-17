@@ -1,0 +1,18 @@
+# ===== 绝不提交的内容 =====
+# 模型权重（3.8G，内含嵌套 git 仓库）
+assets_cache/
+# 管线运行输出 / 结果
+repo/outputs/
+outputs/
+# colcon 构建产物
+build/
+install/
+# 日志
+log/
+.roslog/
+# ===== Python =====
+__pycache__/
+*.pyc
+*.pyo
+# 临时目录
+.pydeps_*/

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>move_grasp_demo</name>
+  <version>0.1.0</version>
+  <description>
+    ROS 2 版「底盘移动 + 识别抓取 + 运送放置」全流程节点。
+    抓取位姿来自 graspgen-X 管线（YOLO + MobileSAM + FoundationStereo + GraspGenX），
+    底盘/机械臂/夹爪(触觉)复用 delivery_robot 的驱动。
+  </description>
+  <maintainer email="maintainer@example.com">MoveGrasp Maintainer</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>graspgenx_interfaces</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
